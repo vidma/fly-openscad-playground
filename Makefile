@@ -14,22 +14,23 @@ public: \
 		public/openscad.js \
 		public/openscad.wasm \
 		public/libraries/fonts.zip \
-		public/libraries/openscad.zip \
-		public/libraries/NopSCADlib.zip \
-		public/libraries/BOSL.zip \
-		public/libraries/BOSL2.zip \
-		public/libraries/funcutils.zip \
-		public/libraries/FunctionalOpenSCAD.zip \
-		public/libraries/YAPP_Box.zip \
-		public/libraries/MCAD.zip \
-		public/libraries/smooth-prim.zip \
-		public/libraries/plot-function.zip \
-		public/libraries/openscad-tray.zip \
-		public/libraries/closepoints.zip \
-		public/libraries/Stemfie_OpenSCAD.zip \
-		public/libraries/pathbuilder.zip \
-		public/libraries/openscad_attachable_text3d.zip \
-		public/libraries/UB.scad.zip
+		public/libraries/scads.zip
+# 		public/libraries/openscad.zip
+# 		public/libraries/NopSCADlib.zip \
+# 		public/libraries/BOSL.zip \
+# 		public/libraries/BOSL2.zip \
+# 		public/libraries/funcutils.zip \
+# 		public/libraries/FunctionalOpenSCAD.zip \
+# 		public/libraries/YAPP_Box.zip \
+# 		public/libraries/MCAD.zip \
+# 		public/libraries/smooth-prim.zip \
+# 		public/libraries/plot-function.zip \
+# 		public/libraries/openscad-tray.zip \
+# 		public/libraries/closepoints.zip \
+# 		public/libraries/Stemfie_OpenSCAD.zip \
+# 		public/libraries/pathbuilder.zip \
+# 		public/libraries/openscad_attachable_text3d.zip \
+# 		public/libraries/UB.scad.zip
 
 clean:
 	rm -fR libs build
@@ -73,6 +74,12 @@ libs/openscad:
 public/libraries/openscad.zip: libs/openscad
 	mkdir -p public/libraries
 	( cd libs/openscad ; zip -r ../../public/libraries/openscad.zip `find examples -name '*.scad' | grep -v tests` )
+
+public/libraries/scads.zip: scads
+	mkdir -p public/libraries
+	pwd
+	( cd scads ; zip -r ../public/libraries/scads.zip `find . -name '*.scad' | grep -v tests` )
+
 
 libs/BOSL2: 
 	git clone --recurse https://github.com/revarbat/BOSL2.git ${SHALLOW} ${SINGLE_BRANCH} $@

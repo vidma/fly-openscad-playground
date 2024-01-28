@@ -35,7 +35,7 @@ declare var BrowserFS: BrowserFSInterface
 (async () => {
   registerCustomAppHeightCSSProperty();
 
-  const fs = await createEditorFS({prefix: '/', allowPersistence: isInStandaloneMode});
+  const fs = await createEditorFS({prefix: '/', allowPersistence: false});
 
   await registerOpenSCADLanguage(fs, '/', zipArchives);
 

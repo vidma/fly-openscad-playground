@@ -1,43 +1,13 @@
-/*  To view the 3D render or to export the .STL file, open this file with openscad (it is free and opensource).
-    For more information, see the pdf attached.
-
+/*
     This work is licensed under a Creative Commons Attribution 4.0 International License.
-
-    SOL75 has chosen the values needed to match your requirements.
-    Parameters that have been modified by SOL75 will have the "//SOL75" comment beside them.    
-
     Downloaded from www.sol75.com
 */
+// FIXME: use ../constants.scad
 $fs = 0.1;
 
-//Assigned by requirements
-spar_l = 150;//SOL75
-spar_w = 2;//SOL75
-spar_h = 7.3;//SOL75
-theta = 5;//SOL75
-sweep = 0;//SOL75
-body_d = 5;//SOL75
-use_skid = 1;//SOL75
+include <constants.scad>;
 
-//True DOF
-skin_t = 1;//SOL75 // Upper and lower element of the beam
-iso_el_t = 1.3;//SOL75 // ~ number of layers
-iso_el_width = 0.5;//SOL75 // ~ nozzle thickness
-perimeter_t = 0.5;//SOL75
 
-tube_z_pos = 8;//SOL75 //Position of the tube axis in z: How "negative" is the body tube position
-
-insertion_l = 15;//SOL75
-body_l = 12;//SOL75
-pin_d = 2;//SOL75 // diameter of the pin which helds the beam in place
-stand_off_l = 4;//SOL75// distance from the symmetry axis to the start of the spar
-
-skid_l = 12; // skid lenght
-hole_d = 3; //hole in the skid
-
-// printer settings
-min_tol = 0.4;//SOL75
-p0 = 0.01;
 
 //A0A0_wing_struct_0_NULL();
 module A0A0_wing_struct_0_NULL(){

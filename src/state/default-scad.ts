@@ -1,45 +1,48 @@
 // Portions of this file are Copyright 2021 Google LLC, and licensed under GPL2+. See COPYING.
 
-export default `/*
-  Hello there!
-
-  If you're new to OpenSCAD, please learn the basics here:
-  https://openscad.org/documentation.html
-
-  There are lots of amazing libraries in the OpenSCAD ecosystem
-  (see this list: https://openscad.org/libraries.html).
-
-  Some of these libraries are bundled with this playground
-  (search for "demo" or "example" in the file explorer above)
-  and can be included directly from your models.
-
-  Any bugs (this is an Alpha!) or ideas of features?
-  https://github.com/openscad/openscad-playground/issues/new
+export default `/* 
+    This work is licensed under a Creative Commons Attribution 4.0 International License.
+    Downloaded from www.sol75.com
 */
 
-// Click on Render or hit F6 to do a fine-grained rendering.
-$fn=$preview ? 20 : 100;
+$fs = 1;
+include <constants.scad>;
+use<printable_structures.scad>;
+use<printable_airfoil_segments.scad>;
 
-translate([-24,0,0]) {
-  union() {
-    cube(15, center=true);
-    sphere(10);
-  }
+
+
+A0_glider_s0_NULL();
+
+module A0_glider_s0_NULL(){
+    A0A0_wing_struct_0_NULL();
+
+    module ribs_in_place(){
+        rotate([0,0,sweep]) rotate([0,-theta,0]){
+        //First with an offset
+        translate([20,0,spar_h/2]) mirror([-1,0,0])rotate([0,90,0]) rotate([0,0,90]) A0A1_NACA_4d_0_NULL();
+        for(i = [1:rib_n-1]){
+            translate([spar_l/(rib_n-1)*i + 10,0,spar_h/2]) mirror([-1,0,0])rotate([0,90,0]) rotate([0,0,90]) A0A1_NACA_4d_0_NULL();
+       }
+    }
+
+    }
+    //one wing ribs
+    ribs_in_place();
+   //mirror for the other
+    mirror([1,0,0])ribs_in_place();
+
+ }
+
+module A0_glider_s0_STAND_ALONE_PRINT(){
+   //nothing to do here
 }
 
-intersection() {
-  cube(15, center=true);
-  sphere(10);
+module A0_glider_s0_NEGATIVE(){
+   //nothing to do here
 }
 
-translate([24,0,0]) {
-  difference() {
-    cube(15, center=true);
-    sphere(10);
-  }
+module A0_glider_s0_POSITIVE(){
+   //nothing to do here
 }
-
-translate([0, -30, -12])
-  linear_extrude(1)
-    text("OpenSCAD Playground", halign="center", valign="center");
 `

@@ -1,37 +1,9 @@
-/*  To view the 3D render or to export the .STL file, open this file with openscad (it is free and opensource).
-    For more information, see the pdf attached.
-
+/*
     This work is licensed under a Creative Commons Attribution 4.0 International License.
-
-    SOL75 has chosen the values needed to match your requirements.
-    Parameters that have been modified by SOL75 will have the "//SOL75" comment beside them.    
-
     Downloaded from www.sol75.com
 */
 $fs =0.05;
-
-//Assigned from req - this may generate each individual airfoil section, e.g. even NACA prantdl
-sweep = 0;//SOL75, degrees?
-twist = 0;//SOL75 //deg
-spar_width = 3;//SOL75
-spar_height = 3;//SOL75, 7.3
-chord = 80;//SOL75 mm
-
-// NACA params
-camber_max = 2.704;//SOL75
-camber_pos = 40.02/10;//SOL75  /10 compared to airfoiltools
-thickness_max = 7.971;//SOL75
-
-// Real DOF
-n_sections = 15;//SOL75. was 4
-perimeter_t = 0.8;//SOL75
-rib_base_h = 0.2*8;//SOL75 1.7 - height of whole rib
-spar_y_offset = 1*1.5;//SOL75
-protrusion_h = 5; // spar holder length (Z), was 5
-
-//Machine settings
-min_tol = 0.4;//SOL75
-p0 = 0.01; //0.01 - is this minimum part size?
+include <constants.scad>;
 
 A0A1_NACA_4d_0_STAND_ALONE_PRINT();
 

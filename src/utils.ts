@@ -98,8 +98,8 @@ export function registerCustomAppHeightCSSProperty() {
 }
 
 // In PWA mode, persist files in LocalStorage instead of the hash fragment.
-export const isInStandaloneMode =
+export const isInStandaloneMode = false;
   // true
-  Boolean(('standalone' in window.navigator) && (window.navigator.standalone));
+  //Boolean(('standalone' in window.navigator) && (window.navigator.standalone));
 
   
