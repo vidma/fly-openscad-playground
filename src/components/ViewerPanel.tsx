@@ -11,6 +11,7 @@ export default function ViewerPanel({className, style}: {className?: string, sty
   if (!model) throw new Error('No model');
 
   const state = model.state;
+  const width = 400; // wingspan
 
   return (
     <div className={className}
@@ -38,6 +39,10 @@ export default function ViewerPanel({className, style}: {className?: string, sty
               color: model.state.view.color,
             }}
             url={state.output?.stlFileURL ?? ''}
+            floorProps={{
+                gridWidth: width, // FIXME: depends on model size
+                gridLength: width/2,
+            }}
             />}
             
             <ColorPicker
