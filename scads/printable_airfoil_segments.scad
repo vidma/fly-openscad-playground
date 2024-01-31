@@ -5,6 +5,7 @@
 $fs =0.05;
 include <constants.scad>;
 
+
 A0A1_NACA_4d_0_STAND_ALONE_PRINT();
 
 //!A0A1_NACA_4d_0_NULL();
@@ -136,8 +137,15 @@ module NACA_4digit_points( max_camber = 2, max_camber_d = 2, max_t = 12, n_point
     lower_points = [for (i= [0 : n_points]) let (s= x_dist(1 - i/n_points), x = x_lower( s )  , y = y_lower(s) )[x- max_thickness_point,y] ];
     //%linear_extrude(1,scale=1) polygon(lower_points);
 
-    full_profile = concat(upper_points,lower_points);
-    //linear_extrude(1,scale=chord) polygon(full_profile);
-    polygon(full_profile);
-}
 
+    full_profile = (use_custom_airfoil_points)? airfoil_points : concat(upper_points,lower_points);
+
+    echo(full_profile);
+    //linear_extrude(1,scale=chord) polygon(full_profile);
+    if (use_custom_airfoil_points) {
+        translate([-(camber_pos/10),0]) polygon(full_profile);
+    } else {
+       polygon(full_profile);
+    }
+
+}
