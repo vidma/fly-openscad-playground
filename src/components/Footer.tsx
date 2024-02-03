@@ -117,7 +117,7 @@ export default function Footer({style}: {style?: CSSProperties}) {
           title={`Download ${state.output.isPreview ? "preview.stl" : "render.stl"} (${state.output.formattedStlFileSize})\nGenerated in ${state.output.formattedElapsedMillis}`}
           severity="secondary"
           text
-          // label={state.output.isPreview ? "preview.stl" : "render.stl"}
+          label={state.output.isPreview ? "download preview.stl" : "download render.stl"}
           iconPos='right'
           onClick={() => downloadOutput(state)} />
       )}

@@ -26,7 +26,9 @@ export function join(a: string, b: string): string {
   return b === '.' ? a : `${a}/${b}`;
 }
 
-export async function getBrowserFSLibrariesMounts(archiveNames: string[]) {
+export async function getBrowserFSLibrariesMounts() {
+  const archiveNames = deployedArchiveNames;
+  console.log('archiveNames', archiveNames);
   const Buffer = BrowserFS.BFSRequire('buffer').Buffer;
   const fetchData = async (url: string) => (await fetch(url)).arrayBuffer();
   const results: [string, ArrayBuffer][] =
@@ -34,7 +36,9 @@ export async function getBrowserFSLibrariesMounts(archiveNames: string[]) {
   
   const zipMounts: FSMounts = {};
   for (const [n, zipData] of results) {
-    zipMounts[n] = {
+    console.log('zipData', n, zipArchives[n], zipData.byteLength);
+    const mountPath = zipArchives[n].mountPath;
+    zipMounts[mountPath] = {
       fs: "ZipFS",
       options: {
         zipData: Buffer.from(zipData)
@@ -87,8 +91,7 @@ function configureAndInstallFS(windowOrSelf: Window, options: any) {
 }
 
 export async function createEditorFS({prefix, allowPersistence}: {prefix: string, allowPersistence: boolean}): Promise<FS> {
-  const archiveNames = deployedArchiveNames;
-  const librariesMounts = await getBrowserFSLibrariesMounts(archiveNames);
+  const librariesMounts = await getBrowserFSLibrariesMounts();
   const allMounts: FSMounts = {};
   for (const n in librariesMounts) {
     allMounts[`${prefix}${n}`] = librariesMounts[n];

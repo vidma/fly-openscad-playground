@@ -104,6 +104,8 @@ export class Model {
         s.lastCheckerRun = undefined;
         s.output = undefined;
       }
+
+      s.params.constantsSource = new TextDecoder("utf-8").decode(this.fs.readFileSync("/constants.scad"));
     })) {
       this.processSource();
     }
@@ -126,7 +128,7 @@ export class Model {
   }
   checkSyntax() {
     this.mutate(s => s.checkingSyntax = true);
-    checkSyntax(this.state.params.source, this.state.params.sourcePath)({now: false, callback: (checkerRun, err) => this.mutate(s => {
+    checkSyntax(this.state.params.source, this.state.params.sourcePath, this.state.params.constantsSource)({now: false, callback: (checkerRun, err) => this.mutate(s => {
       if (err != null) {
         console.error('Error while checking syntax:', err)
       } else {
@@ -146,9 +148,9 @@ export class Model {
     }
     this.mutate(s => setRendering(s, true));
 
-    const {source, sourcePath, features} = this.state.params;
+    const {source, constantsSource, sourcePath, features} = this.state.params;
     
-    render({source, sourcePath, features, extraArgs: [], isPreview})({now, callback: (output, err) => {
+    render({source, constantsSource, sourcePath, features, extraArgs: [], isPreview})({now, callback: (output, err) => {
       this.mutate(s => {
         setRendering(s, false);
         if (err != null) {

@@ -10,6 +10,7 @@ export interface State {
     sourcePath: string,
     source: string,
     features: string[],
+    constantsSource: string
   },
 
   view: {

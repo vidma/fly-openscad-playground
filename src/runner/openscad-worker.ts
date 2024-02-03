@@ -1,6 +1,6 @@
 // Portions of this file are Copyright 2021 Google LLC, and licensed under GPL2+. See COPYING.
 
-import OpenSCAD from "../wasm/openscad.js";
+import OpenSCAD from '../wasm/openscad.js';
 
 import { createEditorFS, symlinkLibraries } from "../fs/filesystem";
 import { OpenSCADInvocation, OpenSCADInvocationResults } from "./openscad-runner";

@@ -25,6 +25,7 @@ export function readStateFromFragment(): State | null {
           sourcePath: validateString(params?.sourcePath),
           source: validateString(params?.source),
           features: validateArray(params?.features, validateString),
+          constantsSource: validateString(params?.constantsSource),
         },
         view: {
           layout: {
@@ -37,7 +38,7 @@ export function readStateFromFragment(): State | null {
           color: validateString(view?.color, () => defaultModelColor),
           showAxes: validateBoolean(view?.layout?.showAxis, () => true),
           showShadows: validateBoolean(view?.layout?.showShadow, () => true),
-          lineNumbers: validateBoolean(view?.layout?.lineNumbers, () => false)
+          lineNumbers: true //validateBoolean(view?.layout?.lineNumbers, () => true)
         }
       };
     } catch (e) {

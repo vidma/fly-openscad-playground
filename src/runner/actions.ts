@@ -10,14 +10,18 @@ const syntaxDelay = 300;
 
 type SyntaxCheckOutput = {logText: string, markers: monaco.editor.IMarkerData[]};
 export const checkSyntax =
-  turnIntoDelayableExecution(syntaxDelay, (source: string, sourcePath: string) => {
+  turnIntoDelayableExecution(syntaxDelay, (source: string, sourcePath: string, constantsSource: string) => {
     // const timestamp = Date.now(); 
     
     source = '$preview=true;\n' + source;
     sourcePath = getFileName(sourcePath);
 
     const job = spawnOpenSCAD({
-      inputs: [[sourcePath, source + '\n']],
+      inputs: [
+          [sourcePath, source + '\n'],
+          ['/constants.scad', constantsSource], // FIXME: do we need both?
+          ['/libraries/constants.scad', constantsSource]
+      ],
       args: [sourcePath, "-o", "out.ast"],
       // workingDir: sourcePath.startsWith('/') ? getParentDir(sourcePath) : '/home'
     });
@@ -45,13 +49,14 @@ export type RenderOutput = {stlFile: File, logText: string, markers: monaco.edit
 
 export type RenderArgs = {
   source: string,
-  sourcePath: string,
+  constantsSource: string,
+  sourcePath: string, // FIXME: add constants path?
   features?: string[],
   extraArgs?: string[],
   isPreview: boolean
 }
 export const render =
- turnIntoDelayableExecution(renderDelay, ({sourcePath, source, isPreview, features, extraArgs}: RenderArgs) => {
+ turnIntoDelayableExecution(renderDelay, ({sourcePath, constantsSource, source, isPreview, features, extraArgs}: RenderArgs) => {
 
     const prefixLines: string[] = [];
     if (isPreview) {
@@ -70,7 +75,11 @@ export const render =
     
     const job = spawnOpenSCAD({
       // wasmMemory,
-      inputs: [[sourcePath, source]],
+      inputs: [
+          [sourcePath, source],
+          ['/constants.scad', constantsSource],
+          ['/libraries/constants.scad', constantsSource]
+      ],
       args,
       outputPaths: ['out.stl'],
       // workingDir: sourcePath.startsWith('/') ? getParentDir(sourcePath) : '/home'
